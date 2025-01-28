@@ -31,6 +31,7 @@ function f = crossvalid_pred_linear(song_intvs, clusts_var, ...
         
     end
 
+    disp(cv_pred_err)
     f = mean(cv_pred_err);
 
 end

@@ -5,6 +5,7 @@ mouse_dat = ["190516","190521","190523","NA","NA","NA";
              "190705","190708","190709","190711","190716","190724";
              "191217","191223","NA","NA","NA","NA";
              "200917","200919","NA","NA","NA","NA"];
+n_mice = 4; % how many mice to process
 
 % file names
 
@@ -16,7 +17,7 @@ song_pred_neu_file = "SongPredNeurons.mat";
 
 bin_start = 10; % 10s before the song onset
 bin_duration = 5;
-bin_increment = 1;
+bin_increment = 0.5;
 
 lowest_bin_start = bin_duration;
 num_diff_bins = (bin_start - bin_duration)/bin_increment + 1;
@@ -25,7 +26,7 @@ bin_st_vals = linspace(bin_start,lowest_bin_start,num_diff_bins);
 
 % looping over all mice to be processed
 
-for m = 1:2 %1:n_mice
+for m = 1:n_mice
     m_dat = mouse_dat(m,:);
     m_dat = m_dat(m_dat~="NA"); % removing dummy NA entries
 
@@ -53,6 +54,7 @@ for m = 1:2 %1:n_mice
 
         song_durs = syll_times(:,2) - syll_times(:,1);
         songlen_var = var(song_durs);
+        n_songs = length(song_durs);
 
         % loading the cluster output file
 
@@ -84,7 +86,7 @@ for m = 1:2 %1:n_mice
 
         fig_path = data_f + m_dat(sess) + "/cverr_var_linear.png";
         visualize_cverr_var_linear(bin_st_vals, var_expl, ...
-                                    fig_path, m_dat(sess));
+                                    fig_path, m_dat(sess), n_neurons, n_songs);
 
     end
 end
