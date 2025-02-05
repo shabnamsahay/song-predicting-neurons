@@ -26,7 +26,7 @@ function visualize_var_scatter(vars_mat, f_path)
 
     xlabel('Explained variance - absolute time');
     ylabel('Explained variance - relative time');
-    % title(['p = ' num2str(p)])
+    title(['p = ' num2str(p)])
 
     saveas(fig, f_path)
     close(fig);

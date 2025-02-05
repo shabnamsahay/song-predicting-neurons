@@ -13,6 +13,8 @@ clust_file = "clusterOutput.mat";
 song_mod_neu_file = "SongModNeurons.mat";
 song_pred_neu_file = "SongPredNeurons.mat";
 
+n_mice = 4;
+
 for m = 1:n_mice
     m_dat = mouse_dat(m,:);
     m_dat = m_dat(m_dat~="NA"); % removing dummy NA entries

@@ -9,7 +9,8 @@ function f = crossvalid_pred_linear(song_intvs, clusts_var, ...
                          song_pred_neus, bin_st_time, bin_dur);
     slens = song_intvs(:,2) - song_intvs(:,1);
 
-    cv_pred_err = zeros(n_songs, 1);
+    mean_song_dur = mean(slens);
+    cv_pred_err = zeros(n_songs, 2); % rows of [numrt denmt] per song
 
     for i = 1:n_songs % exclude each song once
 
@@ -26,13 +27,17 @@ function f = crossvalid_pred_linear(song_intvs, clusts_var, ...
         crt_song_predlen = A(i,:)*W_vec + bias_t;
         % predlens_vec = model_mat*W_vec + bias_t;
         
-        crt_song_pred_err = abs(crt_song_predlen - crt_song_dur);
+        crt_song_pred_err = (crt_song_predlen - crt_song_dur)^2;
+        mean_model_err = (mean_song_dur - crt_song_dur)^2;
+        
         cv_pred_err(i,1) = crt_song_pred_err;
+        cv_pred_err(i,2) = mean_model_err;
         
     end
 
     disp(cv_pred_err)
-    f = mean(cv_pred_err);
+    summed_vals = sum(cv_pred_err, 1);
+    f = summed_vals(1,1)/summed_vals(1,2);
 
 end
 

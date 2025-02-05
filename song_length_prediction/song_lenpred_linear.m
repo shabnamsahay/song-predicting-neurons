@@ -72,11 +72,11 @@ for m = 1:n_mice
 
             crt_bin_st = bin_start - (bin_n - 1)*bin_increment;
 
-            crossv_err = crossvalid_pred_linear(syll_times, clusters, ...
+            crossv_err_var = crossvalid_pred_linear(syll_times, clusters, ...
                                                 song_pred_neurons, ...
                                                 crt_bin_st, bin_duration);
 
-            var_expl(1, bin_n) = 1 - crossv_err/songlen_var;
+            var_expl(1, bin_n) = 1 - crossv_err_var;
         end
 
         disp("Calculated values are")
